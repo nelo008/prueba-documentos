@@ -6,7 +6,7 @@ document.querySelector('#app').innerHTML = `
 
     <div class="tarjeta">
 
-      <h1>Solicitud de Constancia</h1>
+      <h1>Solicitud de Constancias1</h1>
       <p class="descripcion">
         Capture sus datos para generar el documento.
       </p>
