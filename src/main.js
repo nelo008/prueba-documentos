@@ -127,8 +127,10 @@ const planesEstudio = {
 // =====================================================
 
 const docentes = [
-  "JIMENEZ DEMA LIDIA",
-  "GOMEZ SANCHEZ EDDY ANTONIO"
+  "LIDIA JIMENEZ DEMEZA",
+  "MARBEL CRISTAL PEREZ GUZMAN",
+  "MIGUEL SILVANO GUZMAN",
+  "ALICIA"
 ]
 
 
