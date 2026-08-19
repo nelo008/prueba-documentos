@@ -500,7 +500,10 @@ body {
 
   resize: vertical;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
   font-size: 9px;
 }
@@ -871,7 +874,8 @@ body {
 
   padding: 7px;
 
-  border-bottom: 1px solid rgba(100,100,100,.25);
+  border-bottom:
+    1px solid rgba(100,100,100,.25);
 
   font-size: 7px;
 
@@ -957,6 +961,7 @@ body {
    RESPONSIVE
 ===================================================== */
 
+
 /* =====================================================
    TABLET
 ===================================================== */
@@ -964,12 +969,16 @@ body {
 @media (max-width: 1100px) and (min-width: 701px) {
 
   .agenda-container {
+
     width: 96%;
+
     padding: 20px;
   }
 
   .datos {
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+      1fr 1fr;
   }
 
   .campo-sede,
@@ -978,22 +987,32 @@ body {
   .campo-materia,
   .campo-semana,
   .campo-tema {
+
     grid-column: auto;
   }
 
   .agenda {
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
     gap: 12px;
+
     border: none;
   }
 
   .dia {
-    border: 1px solid #b9c9c1;
+
+    border:
+      1px solid #b9c9c1;
+
     border-radius: 10px;
   }
 
   .dia:last-child {
-    border-right: 1px solid #b9c9c1;
+
+    border-right:
+      1px solid #b9c9c1;
   }
 
 }
@@ -1006,13 +1025,12 @@ body {
 @media (max-width: 700px) {
 
   body {
+
     background: #eef4f1;
   }
 
 
-  /* ===================================================
-     CONTENEDOR PRINCIPAL
-  =================================================== */
+  /* CONTENEDOR */
 
   .agenda-container {
 
@@ -1030,13 +1048,12 @@ body {
   }
 
 
-  /* ===================================================
-     ENCABEZADO
-  =================================================== */
+  /* ENCABEZADO */
 
   .encabezado {
 
-    justify-content: flex-start;
+    justify-content:
+      flex-start;
 
     margin-bottom: 15px;
 
@@ -1049,7 +1066,8 @@ body {
     background: white;
 
     box-shadow:
-      0 3px 12px rgba(0,0,0,.06);
+      0 3px 12px
+      rgba(0,0,0,.06);
   }
 
   .encabezado-icono {
@@ -1076,9 +1094,7 @@ body {
   }
 
 
-  /* ===================================================
-     DATOS GENERALES
-  =================================================== */
+  /* DATOS */
 
   .datos {
 
@@ -1097,7 +1113,8 @@ body {
     background: white;
 
     box-shadow:
-      0 3px 12px rgba(0,0,0,.06);
+      0 3px 12px
+      rgba(0,0,0,.06);
   }
 
 
@@ -1128,7 +1145,8 @@ body {
 
     height: 40px;
 
-    padding: 8px 10px;
+    padding:
+      8px 10px;
 
     border-radius: 8px;
 
@@ -1147,9 +1165,7 @@ body {
   }
 
 
-  /* ===================================================
-     DOCENTES
-  =================================================== */
+  /* DOCENTES */
 
   .docentes {
 
@@ -1164,7 +1180,8 @@ body {
     background: white;
 
     box-shadow:
-      0 3px 12px rgba(0,0,0,.06);
+      0 3px 12px
+      rgba(0,0,0,.06);
   }
 
 
@@ -1216,9 +1233,7 @@ body {
   }
 
 
-  /* ===================================================
-     AGENDA
-  =================================================== */
+  /* AGENDA */
 
   .agenda {
 
@@ -1234,9 +1249,7 @@ body {
   }
 
 
-  /* ===================================================
-     DÍA
-  =================================================== */
+  /* DÍA */
 
   .dia {
 
@@ -1246,26 +1259,27 @@ body {
 
     padding-bottom: 15px;
 
-    border: 1px solid #ccd9d3;
+    border:
+      1px solid #ccd9d3;
 
     border-radius: 12px;
 
     overflow: hidden;
 
     box-shadow:
-      0 3px 14px rgba(0,0,0,.06);
+      0 3px 14px
+      rgba(0,0,0,.06);
   }
 
 
   .dia:last-child {
 
-    border-right: 1px solid #ccd9d3;
+    border-right:
+      1px solid #ccd9d3;
   }
 
 
-  /* ===================================================
-     AULA
-  =================================================== */
+  /* AULA */
 
   .dia[data-tipo="aula"] {
 
@@ -1275,9 +1289,7 @@ body {
   }
 
 
-  /* ===================================================
-     PRÁCTICA
-  =================================================== */
+  /* PRÁCTICA */
 
   .dia[data-tipo="practica"] {
 
@@ -1287,9 +1299,7 @@ body {
   }
 
 
-  /* ===================================================
-     ENCABEZADO DEL DÍA
-  =================================================== */
+  /* ENCABEZADO DEL DÍA */
 
   .dia-titulo {
 
@@ -1305,11 +1315,15 @@ body {
 
     min-height: 65px;
 
-    padding: 12px 10px;
+    padding:
+      12px 10px;
 
-    background: rgba(255,255,255,.65);
+    background:
+      rgba(255,255,255,.65);
 
-    border-bottom: 1px solid rgba(100,120,110,.25);
+    border-bottom:
+      1px solid
+      rgba(100,120,110,.25);
   }
 
 
@@ -1329,11 +1343,13 @@ body {
 
   .tipo-dia label {
 
-    padding: 5px 9px;
+    padding:
+      5px 9px;
 
     border-radius: 20px;
 
-    background: rgba(255,255,255,.75);
+    background:
+      rgba(255,255,255,.75);
 
     font-size: 9px;
   }
@@ -1347,14 +1363,11 @@ body {
   }
 
 
-  /* ===================================================
-     BLOQUES DEL DÍA
-  =================================================== */
+  /* BLOQUES */
 
   .bloque {
 
     padding:
-
       13px
       13px
       0;
@@ -1369,9 +1382,7 @@ body {
   }
 
 
-  /* ===================================================
-     DOCENTES DEL DÍA
-  =================================================== */
+  /* DOCENTES */
 
   .docentes-dia {
 
@@ -1379,11 +1390,14 @@ body {
 
     padding: 8px;
 
-    border: 1px solid rgba(100,120,110,.20);
+    border:
+      1px solid
+      rgba(100,120,110,.20);
 
     border-radius: 8px;
 
-    background: rgba(255,255,255,.60);
+    background:
+      rgba(255,255,255,.60);
 
     font-size: 9px;
 
@@ -1391,9 +1405,7 @@ body {
   }
 
 
-  /* ===================================================
-     TEXTAREAS
-  =================================================== */
+  /* TEXTAREAS */
 
   .bloque textarea {
 
@@ -1403,7 +1415,8 @@ body {
 
     border-radius: 8px;
 
-    background: rgba(255,255,255,.70);
+    background:
+      rgba(255,255,255,.70);
 
     font-size: 10px;
 
@@ -1417,9 +1430,7 @@ body {
   }
 
 
-  /* ===================================================
-     BOTONES
-  =================================================== */
+  /* BOTONES */
 
   .acciones {
 
@@ -1438,7 +1449,8 @@ body {
     background: white;
 
     box-shadow:
-      0 3px 12px rgba(0,0,0,.06);
+      0 3px 12px
+      rgba(0,0,0,.06);
   }
 
 
@@ -1454,13 +1466,7 @@ body {
   }
 
 
-  /* ===================================================
-     VISTA PREVIA EN CELULAR
-     
-     IMPORTANTE:
-     La hoja PDF NO se modifica.
-     Se permite desplazamiento horizontal.
-  =================================================== */
+  /* VISTA PREVIA */
 
   .modal-preview {
 
@@ -1472,7 +1478,8 @@ body {
 
     min-height: 58px;
 
-    padding: 9px 13px;
+    padding:
+      9px 13px;
   }
 
 
@@ -1498,7 +1505,8 @@ body {
 
   .preview-area {
 
-    justify-content: flex-start;
+    justify-content:
+      flex-start;
 
     overflow-x: auto;
 
@@ -1520,17 +1528,29 @@ body {
 
     min-height: 58px;
 
-    padding: 8px 12px;
+    padding:
+      8px 12px;
   }
 
 
   .preview-footer button {
 
-    padding: 9px 14px;
+    padding:
+      9px 14px;
 
     font-size: 9px;
   }
 
+}
+
+
+/* =====================================================
+   VALIDACIÓN VISUAL
+===================================================== */
+
+.dia[data-tipo=""] {
+
+  background: #ffffff;
 }
 
 
@@ -1572,27 +1592,35 @@ body {
 
   .dia[data-tipo="aula"] {
 
-    background: #eaf4ff !important;
+    background:
+      #eaf4ff !important;
 
-    -webkit-print-color-adjust: exact;
+    -webkit-print-color-adjust:
+      exact;
 
-    print-color-adjust: exact;
+    print-color-adjust:
+      exact;
   }
 
   .dia[data-tipo="practica"] {
 
-    background: #eaf8ef !important;
+    background:
+      #eaf8ef !important;
 
-    -webkit-print-color-adjust: exact;
+    -webkit-print-color-adjust:
+      exact;
 
-    print-color-adjust: exact;
+    print-color-adjust:
+      exact;
   }
 
   .dia {
 
-    -webkit-print-color-adjust: exact;
+    -webkit-print-color-adjust:
+      exact;
 
-    print-color-adjust: exact;
+    print-color-adjust:
+      exact;
   }
 
   @page {
@@ -1601,4 +1629,5 @@ body {
 
     margin: 7mm;
   }
+
 }

@@ -188,8 +188,6 @@ document.querySelector('#app').innerHTML = `
 
   <div class="agenda-container">
 
-    <!-- ENCABEZADO -->
-
     <header class="encabezado">
 
       <div class="encabezado-icono">
@@ -203,8 +201,6 @@ document.querySelector('#app').innerHTML = `
 
     </header>
 
-
-    <!-- DATOS GENERALES -->
 
     <section class="datos">
 
@@ -312,8 +308,6 @@ document.querySelector('#app').innerHTML = `
     </section>
 
 
-    <!-- DOCENTES -->
-
     <section class="docentes">
 
       <div class="titulo-seccion">
@@ -372,16 +366,12 @@ document.querySelector('#app').innerHTML = `
     </section>
 
 
-    <!-- AGENDA -->
-
     <section class="agenda">
 
       ${dias.map(crearDia).join('')}
 
     </section>
 
-
-    <!-- BOTONES -->
 
     <section class="acciones">
 
@@ -1298,6 +1288,107 @@ function construirVistaPrevia() {
 
 
 // =====================================================
+// VALIDAR FORMULARIO
+// =====================================================
+
+function validarFormulario() {
+
+  const camposObligatorios = [
+    { elemento: carrera, nombre: 'Carrera' },
+    { elemento: ciclo, nombre: 'Ciclo' },
+    { elemento: materia, nombre: 'Materia' },
+    { elemento: semana, nombre: 'Semana' }
+  ]
+
+  for (const campo of camposObligatorios) {
+
+    if (!campo.elemento.value) {
+
+      alert(`Debes seleccionar: ${campo.nombre}`)
+
+      campo.elemento.focus()
+
+      return false
+    }
+  }
+
+
+  // El tema solamente se valida si está habilitado.
+  if (!tema.disabled && !tema.value) {
+
+    alert(
+      'Debes seleccionar un tema.'
+    )
+
+    tema.focus()
+
+    return false
+  }
+
+
+  // Al menos un docente es obligatorio.
+  // El segundo docente es opcional.
+  if (!docente1.value && !docente2.value) {
+
+    alert(
+      'Debes seleccionar al menos un docente.'
+    )
+
+    docente1.focus()
+
+    return false
+  }
+
+
+  // Cada día debe tener Aula o Práctica.
+  for (const nombreDia of dias) {
+
+    const id =
+      nombreDia
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(
+          /[\u0300-\u036f]/g,
+          ''
+        )
+
+
+    const dia =
+      document.querySelector(
+        `#dia-${id}`
+      )
+
+
+    const seleccionado =
+      dia?.querySelector(
+        'input[type="radio"]:checked'
+      )
+
+
+    if (!seleccionado) {
+
+      alert(
+        `Debes seleccionar Aula o Práctica para ${nombreDia}.`
+      )
+
+
+      dia?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+
+
+      return false
+    }
+
+  }
+
+
+  return true
+}
+
+
+// =====================================================
 // VISTA PREVIA
 // =====================================================
 
@@ -1306,6 +1397,11 @@ document
   .addEventListener(
     'click',
     () => {
+
+      if (!validarFormulario()) {
+        return
+      }
+
 
       construirVistaPrevia()
 
@@ -1353,22 +1449,40 @@ document
 
 function generarPDF() {
 
-  const nombreDocumento =
-    obtenerNombreDocumento()
-
-  const hoja =
-    document.querySelector('#hojaPDF')
-
-  if (!hoja) {
-    alert('No se encontró la vista previa.')
+  if (!validarFormulario()) {
     return
   }
 
-  // Actualizar la vista previa antes de imprimir
+
   construirVistaPrevia()
 
+
+  const nombreDocumento =
+    obtenerNombreDocumento()
+
+
+  const hoja =
+    document.querySelector(
+      '#hojaPDF'
+    )
+
+
+  if (!hoja) {
+
+    alert(
+      'No se encontró la hoja de vista previa.'
+    )
+
+    return
+  }
+
+
   const ventana =
-    window.open('', '_blank')
+    window.open(
+      '',
+      '_blank'
+    )
+
 
   if (!ventana) {
 
@@ -1379,17 +1493,62 @@ function generarPDF() {
     return
   }
 
+
+  // Copiar los estilos actuales
+  // para conservar el diseño.
+  const estilos =
+    Array
+      .from(
+        document.querySelectorAll('style')
+      )
+      .map(
+        style =>
+          style.textContent
+      )
+      .join('\n')
+
+
   ventana.document.write(`
 
     <!DOCTYPE html>
 
-    <html>
+    <html lang="es">
 
     <head>
 
-      <title>${nombreDocumento}</title>
+      <meta charset="UTF-8">
+
+      <title>
+        ${nombreDocumento}
+      </title>
 
       <style>
+
+        ${estilos}
+
+
+        html,
+        body {
+
+          margin: 0;
+
+          padding: 0;
+
+          background: white !important;
+
+        }
+
+
+        .hoja-pdf {
+
+          margin:
+            0 auto !important;
+
+          box-shadow:
+            none !important;
+
+        }
+
 
         @page {
 
@@ -1399,243 +1558,38 @@ function generarPDF() {
 
         }
 
-        * {
-
-          box-sizing: border-box;
-
-        }
-
-        body {
-
-          margin: 0;
-
-          padding: 0;
-
-          background: white;
-
-          font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-
-        }
-
-        .hoja-pdf {
-
-          width: 100%;
-
-          min-height: 100%;
-
-          padding: 10px;
-
-          background: white;
-
-          color: #222;
-
-        }
-
-        .pdf-encabezado {
-
-          text-align: center;
-
-          padding-bottom: 12px;
-
-          border-bottom: 2px solid #198754;
-
-        }
-
-        .pdf-encabezado h1 {
-
-          margin: 0;
-
-          color: #176b45;
-
-          font-size: 20px;
-
-        }
-
-        .pdf-encabezado h2 {
-
-          margin: 5px 0 0;
-
-          color: #666;
-
-          font-size: 11px;
-
-          font-weight: normal;
-
-        }
-
-        .pdf-datos {
-
-          display: grid;
-
-          grid-template-columns:
-            1.2fr 1.5fr .7fr;
-
-          gap: 7px 15px;
-
-          margin-top: 14px;
-
-          padding: 10px;
-
-          border: 1px solid #ccc;
-
-          background: #fafafa;
-
-          font-size: 8px;
-
-        }
-
-        .pdf-datos strong {
-
-          margin-right: 4px;
-
-          color: #176b45;
-
-        }
-
-        .pdf-docentes {
-
-          margin-top: 8px;
-
-          padding: 8px;
-
-          border: 1px solid #ccc;
-
-          font-size: 8px;
-
-        }
-
-        .pdf-docentes strong {
-
-          margin-right: 5px;
-
-          color: #176b45;
-
-        }
-
-        .pdf-agenda {
-
-          display: grid;
-
-          grid-template-columns:
-            repeat(5, 1fr);
-
-          margin-top: 18px;
-
-          border-top: 1px solid #777;
-
-          border-left: 1px solid #777;
-
-        }
-
-        .pdf-dia {
-
-          min-height: 475px;
-
-          border-right: 1px solid #777;
-
-          border-bottom: 1px solid #777;
-
-          background: white;
-
-        }
 
         .pdf-dia.pdf-aula {
 
-          background: #eaf4ff !important;
+          background:
+            #eaf4ff !important;
 
-          -webkit-print-color-adjust: exact;
+          -webkit-print-color-adjust:
+            exact !important;
 
-          print-color-adjust: exact;
+          print-color-adjust:
+            exact !important;
 
         }
+
 
         .pdf-dia.pdf-practica {
 
-          background: #eaf8ef !important;
+          background:
+            #eaf8ef !important;
 
-          -webkit-print-color-adjust: exact;
+          -webkit-print-color-adjust:
+            exact !important;
 
-          print-color-adjust: exact;
-
-        }
-
-        .pdf-dia-titulo {
-
-          padding: 7px;
-
-          text-align: center;
-
-          border-bottom: 1px solid #aaa;
-
-          background: rgba(255,255,255,.65);
-
-        }
-
-        .pdf-dia-titulo strong {
-
-          display: block;
-
-          font-size: 9px;
-
-        }
-
-        .pdf-dia-titulo span {
-
-          display: block;
-
-          margin-top: 2px;
-
-          font-size: 7px;
-
-          font-weight: bold;
-
-        }
-
-        .pdf-bloque {
-
-          min-height: 50px;
-
-          padding: 7px;
-
-          border-bottom:
-            1px solid rgba(100,100,100,.25);
-
-          font-size: 7px;
-
-          line-height: 11px;
-
-        }
-
-        .pdf-bloque strong {
-
-          display: block;
-
-          margin-bottom: 3px;
-
-          color: #176b45;
-
-          font-size: 6px;
-
-        }
-
-        .pdf-pie {
-
-          margin-top: 8px;
-
-          text-align: right;
-
-          color: #888;
-
-          font-size: 7px;
+          print-color-adjust:
+            exact !important;
 
         }
 
       </style>
 
     </head>
+
 
     <body>
 
@@ -1647,10 +1601,9 @@ function generarPDF() {
 
   `)
 
+
   ventana.document.close()
 
-
-  // Esperar a que el documento esté listo
 
   ventana.onload = () => {
 
@@ -1672,8 +1625,6 @@ document
   .addEventListener(
     'click',
     () => {
-
-      cerrarVistaPrevia()
 
       generarPDF()
 
