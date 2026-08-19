@@ -1,272 +1,1711 @@
 import './style.css'
-import { jsPDF } from 'jspdf'
+
+// =====================================================
+// PLANES DE ESTUDIO
+// =====================================================
+
+const planesEstudio = {
+  "Licenciatura en Enfermería y Obstetricia": {
+    "3er ciclo": [
+      {
+        clave: "CPAO",
+        nombre: "Proceso de Atención en Enfermería y Obstetricia"
+      },
+      {
+        clave: "SIE",
+        nombre: "Interculturalidad, Salud y Embarazo"
+      },
+      {
+        clave: "BRH",
+        nombre: "Anatomía y Fisiología de la Reproducción Humana"
+      },
+      {
+        clave: "BMP",
+        nombre: "Microbiología y Parasitología"
+      },
+      {
+        clave: "BFF",
+        nombre: "Fundamentos de Farmacología"
+      }
+    ],
+
+    "5to ciclo": [
+      {
+        clave: "CEC",
+        nombre: "Cuidado Integral de la Mujer en el Embarazo, Parto y Posparto Complicado"
+      },
+      {
+        clave: "BPH",
+        nombre: "Parto Humanizado"
+      },
+      {
+        clave: "CPS",
+        nombre: "Políticas Públicas en Salud"
+      },
+      {
+        clave: "NLD",
+        nombre: "Legislación y Derechos Humanos"
+      },
+      {
+        clave: "BFC",
+        nombre: "Farmacología Clínica"
+      }
+    ],
+
+    "7mo ciclo": [
+      {
+        clave: "CNA",
+        nombre: "Cuidado Integral del Niño y del Adolescente"
+      },
+      {
+        clave: "CEOQ",
+        nombre: "Enfermería Quirúrgica y Cuidados Obstétricos"
+      },
+      {
+        clave: "CEI",
+        nombre: "Enfermería en Cuidados Intensivos"
+      },
+      {
+        clave: "IBE",
+        nombre: "Atención de Brotes, Emergencias y Desastres"
+      },
+      {
+        clave: "NPS",
+        nombre: "Psicología Social en Salud Pública"
+      }
+    ],
+
+    "8vo ciclo": [
+      {
+        clave: "CAM",
+        nombre: "Cuidado Integral del Adulto y Adulto Mayor"
+      },
+      {
+        clave: "CAE",
+        nombre: "Administración de Servicios de Enfermería"
+      },
+      {
+        clave: "CIP",
+        nombre: "Información y Comunicación de Problemas de Salud"
+      },
+      {
+        clave: "IEC",
+        nombre: "Estrategias de Intervención Clínica y Comunitaria"
+      },
+      {
+        clave: "EIEO",
+        nombre: "Estrategias de Intervención en Enfermería y Obstetricia"
+      }
+    ]
+  },
+
+  "Lic. Enfermería Integral y Salud Comunitaria": {
+    "1er ciclo": [
+      {
+        clave: "HYS",
+        nombre: "Higiene y salud"
+      },
+      {
+        clave: "MF",
+        nombre: "Morfo fisiología"
+      },
+      {
+        clave: "AN",
+        nombre: "Alimentación y nutrición"
+      },
+      {
+        clave: "PEI",
+        nombre: "Procedimientos de enfermería integral"
+      }
+    ]
+  }
+}
+
+
+// =====================================================
+// DOCENTES
+// =====================================================
+
+const docentes = [
+  "JIMENEZ DEMA LIDIA",
+  "GOMEZ SANCHEZ EDDY ANTONIO"
+]
+
+
+// =====================================================
+// SEMANAS
+// =====================================================
+
+const semanas = [
+  ["Semana 1", "10 al 14 de agosto"],
+  ["Semana 2", "17 al 21 de agosto"],
+  ["Semana 3", "24 al 28 de agosto"],
+  ["Semana 4", "31 de agosto al 4 de septiembre"],
+  ["Semana 5", "7 al 11 de septiembre"],
+  ["Semana 6", "14 al 18 de septiembre"],
+  ["Semana 7", "21 al 25 de septiembre"],
+  ["Semana 8", "28 de septiembre al 2 de octubre"],
+  ["Semana 9", "5 al 9 de octubre"],
+  ["Semana 10", "12 al 16 de octubre"],
+  ["Semana 11", "19 al 23 de octubre"],
+  ["Semana 12", "26 al 30 de octubre"],
+  ["Semana 13", "2 al 6 de noviembre"],
+  ["Semana 14", "9 al 13 de noviembre"],
+  ["Semana 15", "16 al 20 de noviembre"],
+  ["Semana 16", "23 al 27 de noviembre"],
+  ["Semana 17", "30 de noviembre al 4 de diciembre"],
+  ["Semana 18", "7 al 11 de diciembre"]
+]
+
+
+// =====================================================
+// DÍAS
+// =====================================================
+
+const dias = [
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes"
+]
+
+
+// =====================================================
+// TEMAS
+// =====================================================
+// Aquí posteriormente cargaremos los temas reales
+// de cada materia.
+
+const temas = {}
+
+
+// =====================================================
+// CREAR HTML
+// =====================================================
 
 document.querySelector('#app').innerHTML = `
-  <div class="contenedor">
 
-    <div class="tarjeta">
+  <div class="agenda-container">
 
-      <h1>Solicitud de Constancias1</h1>
-      <p class="descripcion">
-        Capture sus datos para generar el documento.
-      </p>
+    <!-- ENCABEZADO -->
 
-      <form id="formulario">
+    <header class="encabezado">
 
-        <div class="campo">
-          <label>Nombre</label>
-          <input 
-            type="text" 
-            id="nombre"
-            placeholder="Ej. Manuel"
-            required
-          >
-        </div>
-
-        <div class="campo">
-          <label>Apellidos</label>
-          <input 
-            type="text" 
-            id="apellidos"
-            placeholder="Ej. García Hernández"
-            required
-          >
-        </div>
-
-        <div class="campo">
-          <label>Matrícula</label>
-          <input 
-            type="text" 
-            id="matricula"
-            placeholder="Ej. 20260001"
-            required
-          >
-        </div>
-
-        <div class="campo">
-          <label>Carrera</label>
-          <input 
-            type="text" 
-            id="carrera"
-            placeholder="Ej. Ingeniería"
-            required
-          >
-        </div>
-
-        <div class="campo">
-          <label>Semestre</label>
-          <select id="semestre" required>
-            <option value="">Seleccione</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </div>
-
-        <div class="campo">
-          <label>Correo electrónico</label>
-          <input 
-            type="email" 
-            id="correo"
-            placeholder="ejemplo@correo.com"
-            required
-          >
-        </div>
-
-        <button type="submit">
-          PREVISUALIZAR
-        </button>
-
-      </form>
-
-    </div>
-
-    <div id="vistaPrevia"></div>
-
-  </div>
-`
-
-const formulario = document.querySelector('#formulario')
-const vistaPrevia = document.querySelector('#vistaPrevia')
-
-formulario.addEventListener('submit', (e) => {
-
-  e.preventDefault()
-
-  const datos = {
-
-    nombre: document.querySelector('#nombre').value,
-    apellidos: document.querySelector('#apellidos').value,
-    matricula: document.querySelector('#matricula').value,
-    carrera: document.querySelector('#carrera').value,
-    semestre: document.querySelector('#semestre').value,
-    correo: document.querySelector('#correo').value
-
-  }
-
-  mostrarVistaPrevia(datos)
-
-})
-
-
-function mostrarVistaPrevia(datos) {
-
-  vistaPrevia.innerHTML = `
-
-    <div class="documento">
-
-      <h2>VISTA PREVIA</h2>
-
-      <hr>
-
-      <h3>CONSTANCIA DE ESTUDIOS</h3>
-
-      <p>
-        Se hace constar que:
-      </p>
-
-      <h2>
-        ${datos.nombre} ${datos.apellidos}
-      </h2>
-
-      <p>
-        Matrícula: <strong>${datos.matricula}</strong>
-      </p>
-
-      <p>
-        Carrera: <strong>${datos.carrera}</strong>
-      </p>
-
-      <p>
-        Semestre: <strong>${datos.semestre}</strong>
-      </p>
-
-      <p>
-        El presente documento se expide a petición
-        del interesado para los fines que a éste convengan.
-      </p>
-
-      <p class="fecha">
-        Fecha: ${new Date().toLocaleDateString('es-MX')}
-      </p>
-
-      <div class="firma">
-        ______________________________
-        <br>
-        FIRMA
+      <div class="encabezado-icono">
+        📋
       </div>
 
-      <button id="generarPDF">
-        GENERAR PDF
+      <div>
+        <h1>Agenda semanal</h1>
+        <h2>Ciclo 2026-1</h2>
+      </div>
+
+    </header>
+
+
+    <!-- DATOS GENERALES -->
+
+    <section class="datos">
+
+      <div class="campo campo-sede">
+
+        <label>SEDE:</label>
+
+        <input
+          type="text"
+          value="Ejido San Martín Chamizal"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="campo campo-carrera">
+
+        <label>CARRERA:</label>
+
+        <select id="carrera">
+
+          <option value="">
+            Seleccionar carrera
+          </option>
+
+          <option value="Licenciatura en Enfermería y Obstetricia">
+            Licenciatura en Enfermería y Obstetricia
+          </option>
+
+          <option value="Lic. Enfermería Integral y Salud Comunitaria">
+            Lic. Enfermería Integral y Salud Comunitaria
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo campo-ciclo">
+
+        <label>CICLO:</label>
+
+        <select id="ciclo" disabled>
+
+          <option value="">
+            Seleccionar ciclo
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo campo-materia">
+
+        <label>MATERIA:</label>
+
+        <select id="materia" disabled>
+
+          <option value="">
+            Seleccionar materia
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo campo-semana">
+
+        <label>SEMANA:</label>
+
+        <select id="semana">
+
+          <option value="">
+            Seleccionar semana
+          </option>
+
+          ${semanas.map((semana, index) => `
+            <option value="${index + 1}">
+              ${semana[0]} — ${semana[1]}
+            </option>
+          `).join('')}
+
+        </select>
+
+      </div>
+
+
+      <div class="campo campo-tema">
+
+        <label>TEMA:</label>
+
+        <select id="tema" disabled>
+
+          <option value="">
+            Primero selecciona una materia
+          </option>
+
+        </select>
+
+      </div>
+
+    </section>
+
+
+    <!-- DOCENTES -->
+
+    <section class="docentes">
+
+      <div class="titulo-seccion">
+        DOCENTES
+      </div>
+
+      <div class="docentes-contenedor">
+
+        <div class="docente">
+
+          <label>Docente 1:</label>
+
+          <select id="docente1">
+
+            <option value="">
+              Seleccionar docente
+            </option>
+
+            ${docentes.map(docente => `
+              <option value="${docente}">
+                ${docente}
+              </option>
+            `).join('')}
+
+          </select>
+
+        </div>
+
+
+        <div class="docente">
+
+          <label>Docente 2:</label>
+
+          <select id="docente2">
+
+            <option value="">
+              Seleccionar docente
+            </option>
+
+            ${docentes.map(docente => `
+              <option value="${docente}">
+                ${docente}
+              </option>
+            `).join('')}
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <small>
+        Puede seleccionar máximo 2 docentes.
+      </small>
+
+    </section>
+
+
+    <!-- AGENDA -->
+
+    <section class="agenda">
+
+      ${dias.map(crearDia).join('')}
+
+    </section>
+
+
+    <!-- BOTONES -->
+
+    <section class="acciones">
+
+      <button id="btnGuardar">
+        💾 Guardar
       </button>
+
+      <button id="btnVistaPrevia">
+        👁️ Vista previa PDF
+      </button>
+
+      <button id="btnPDF">
+        📄 Generar PDF
+      </button>
+
+    </section>
+
+  </div>
+
+`
+
+
+// =====================================================
+// CREAR DÍA
+// =====================================================
+
+function crearDia(nombre) {
+
+  const id = nombre
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+
+  return `
+
+    <div
+      class="dia"
+      id="dia-${id}"
+      data-tipo=""
+    >
+
+      <div class="dia-titulo">
+
+        <strong>${nombre}</strong>
+
+        <div class="tipo-dia">
+
+          <label>
+
+            <input
+              type="radio"
+              name="tipo-${id}"
+              value="aula"
+              data-dia="${id}"
+            >
+
+            <span class="aula-label">
+              Aula
+            </span>
+
+          </label>
+
+
+          <label>
+
+            <input
+              type="radio"
+              name="tipo-${id}"
+              value="practica"
+              data-dia="${id}"
+            >
+
+            <span class="practica-label">
+              Práctica
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <div class="bloque">
+
+        <label>
+          NOMBRE DE DOCENTE
+        </label>
+
+        <div
+          class="docentes-dia"
+          data-dia="${nombre}"
+        >
+
+          <span>
+            Seleccione los docentes arriba
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="bloque">
+
+        <label>
+          SUBTEMAS:
+        </label>
+
+        <textarea
+          placeholder="Escriba los subtemas..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="bloque">
+
+        <label>
+          ACTIVIDAD DOCENTE:
+        </label>
+
+        <textarea
+          placeholder="Actividad realizada por el docente..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="bloque">
+
+        <label>
+          ACTIVIDAD ALUMNO:
+        </label>
+
+        <textarea
+          placeholder="Actividad realizada por el alumno..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="bloque bibliografia">
+
+        <label>
+          BIBLIOGRAFÍA:
+        </label>
+
+        <textarea
+          placeholder="Bibliografía..."
+        ></textarea>
+
+      </div>
 
     </div>
 
   `
+}
+
+
+// =====================================================
+// VENTANA DE VISTA PREVIA
+// =====================================================
+
+document.body.insertAdjacentHTML('beforeend', `
+
+  <div id="modalPreview" class="modal-preview">
+
+    <div class="preview-header">
+
+      <div>
+
+        <strong>
+          Vista previa del documento
+        </strong>
+
+        <span id="previewNombreArchivo">
+        </span>
+
+      </div>
+
+
+      <button id="cerrarPreview">
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="preview-area">
+
+      <div id="hojaPDF" class="hoja-pdf">
+
+        <div class="pdf-encabezado">
+
+          <h1>
+            AGENDA SEMANAL
+          </h1>
+
+          <h2>
+            CICLO 2026-1
+          </h2>
+
+        </div>
+
+
+        <div class="pdf-datos">
+
+          <div>
+            <strong>SEDE:</strong>
+            <span id="pdfSede">
+              Ejido San Martín Chamizal
+            </span>
+          </div>
+
+          <div>
+            <strong>CARRERA:</strong>
+            <span id="pdfCarrera">-</span>
+          </div>
+
+          <div>
+            <strong>CICLO:</strong>
+            <span id="pdfCiclo">-</span>
+          </div>
+
+          <div>
+            <strong>MATERIA:</strong>
+            <span id="pdfMateria">-</span>
+          </div>
+
+          <div>
+            <strong>SEMANA:</strong>
+            <span id="pdfSemana">-</span>
+          </div>
+
+          <div>
+            <strong>TEMA:</strong>
+            <span id="pdfTema">-</span>
+          </div>
+
+        </div>
+
+
+        <div class="pdf-docentes">
+
+          <strong>DOCENTES:</strong>
+
+          <span id="pdfDocentes">
+            -
+          </span>
+
+        </div>
+
+
+        <div id="pdfAgenda" class="pdf-agenda">
+        </div>
+
+
+        <div class="pdf-pie">
+
+          Agenda semanal — Ciclo 2026-1
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="preview-footer">
+
+      <button id="cerrarPreview2">
+        Cerrar
+      </button>
+
+      <button id="generarDesdePreview">
+        📄 Generar PDF
+      </button>
+
+    </div>
+
+  </div>
+
+`)
+
+
+// =====================================================
+// REFERENCIAS
+// =====================================================
+
+const carrera =
+  document.querySelector('#carrera')
+
+const ciclo =
+  document.querySelector('#ciclo')
+
+const materia =
+  document.querySelector('#materia')
+
+const semana =
+  document.querySelector('#semana')
+
+const tema =
+  document.querySelector('#tema')
+
+const docente1 =
+  document.querySelector('#docente1')
+
+const docente2 =
+  document.querySelector('#docente2')
+
+
+// =====================================================
+// CARRERA → CICLO
+// =====================================================
+
+carrera.addEventListener('change', () => {
+
+  const carreraSeleccionada =
+    carrera.value
+
+  ciclo.innerHTML = `
+    <option value="">
+      Seleccionar ciclo
+    </option>
+  `
+
+  materia.innerHTML = `
+    <option value="">
+      Seleccionar materia
+    </option>
+  `
+
+  tema.innerHTML = `
+    <option value="">
+      Primero selecciona una materia
+    </option>
+  `
+
+  ciclo.disabled = true
+  materia.disabled = true
+  tema.disabled = true
+
+
+  if (!carreraSeleccionada) {
+    return
+  }
+
+
+  const ciclos =
+    planesEstudio[carreraSeleccionada]
+
+
+  Object.keys(ciclos).forEach(nombreCiclo => {
+
+    const option =
+      document.createElement('option')
+
+    option.value =
+      nombreCiclo
+
+    option.textContent =
+      nombreCiclo
+
+    ciclo.appendChild(option)
+
+  })
+
+
+  ciclo.disabled = false
+
+})
+
+
+// =====================================================
+// CICLO → MATERIA
+// =====================================================
+
+ciclo.addEventListener('change', () => {
+
+  const carreraSeleccionada =
+    carrera.value
+
+  const cicloSeleccionado =
+    ciclo.value
+
+
+  materia.innerHTML = `
+    <option value="">
+      Seleccionar materia
+    </option>
+  `
+
+  tema.innerHTML = `
+    <option value="">
+      Primero selecciona una materia
+    </option>
+  `
+
+
+  materia.disabled = true
+  tema.disabled = true
+
+
+  if (!cicloSeleccionado) {
+    return
+  }
+
+
+  const materias =
+    planesEstudio
+      [carreraSeleccionada]
+      [cicloSeleccionado]
+
+
+  materias.forEach(item => {
+
+    const option =
+      document.createElement('option')
+
+    option.value =
+      item.clave
+
+    option.textContent =
+      `${item.clave} — ${item.nombre}`
+
+    materia.appendChild(option)
+
+  })
+
+
+  materia.disabled = false
+
+})
+
+
+// =====================================================
+// MATERIA → TEMA
+// =====================================================
+
+materia.addEventListener('change', () => {
+
+  const claveMateria =
+    materia.value
+
+
+  tema.innerHTML = ''
+
+
+  if (!claveMateria) {
+
+    tema.innerHTML = `
+      <option value="">
+        Primero selecciona una materia
+      </option>
+    `
+
+    tema.disabled = true
+
+    return
+  }
+
+
+  const listaTemas =
+    temas[claveMateria] || []
+
+
+  if (listaTemas.length === 0) {
+
+    tema.innerHTML = `
+      <option value="">
+        Temas pendientes de cargar
+      </option>
+    `
+
+    tema.disabled = true
+
+    return
+  }
+
+
+  tema.innerHTML = `
+    <option value="">
+      Seleccionar tema
+    </option>
+  `
+
+
+  listaTemas.forEach((nombreTema, index) => {
+
+    const option =
+      document.createElement('option')
+
+    option.value =
+      nombreTema
+
+    option.textContent =
+      `${index + 1}. ${nombreTema}`
+
+    tema.appendChild(option)
+
+  })
+
+
+  tema.disabled = false
+
+})
+
+
+// =====================================================
+// DOCENTES
+// =====================================================
+
+docente1.addEventListener('change', () => {
+
+  const valor =
+    docente1.value
+
+
+  Array.from(
+    docente2.options
+  ).forEach(option => {
+
+    option.disabled =
+      valor !== "" &&
+      option.value === valor
+
+  })
+
+
+  actualizarDocentesDias()
+
+})
+
+
+docente2.addEventListener('change', () => {
+
+  const valor =
+    docente2.value
+
+
+  Array.from(
+    docente1.options
+  ).forEach(option => {
+
+    option.disabled =
+      valor !== "" &&
+      option.value === valor
+
+  })
+
+
+  actualizarDocentesDias()
+
+})
+
+
+// =====================================================
+// ACTUALIZAR DOCENTES
+// =====================================================
+
+function actualizarDocentesDias() {
+
+  const seleccionados = []
+
+
+  if (docente1.value) {
+    seleccionados.push(docente1.value)
+  }
+
+
+  if (docente2.value) {
+    seleccionados.push(docente2.value)
+  }
+
 
   document
-    .querySelector('#generarPDF')
-    .addEventListener('click', () => {
+    .querySelectorAll('.docentes-dia')
+    .forEach(contenedor => {
 
-      generarPDF(datos)
+      if (seleccionados.length === 0) {
+
+        contenedor.innerHTML =
+          '<span>Seleccione los docentes arriba</span>'
+
+        return
+
+      }
+
+
+      contenedor.innerHTML =
+        seleccionados
+          .map(docente => `<div>${docente}</div>`)
+          .join('')
 
     })
 
 }
 
 
-function generarPDF(datos) {
+// =====================================================
+// AULA / PRÁCTICA
+// =====================================================
 
-  const pdf = new jsPDF()
-
-  pdf.setFontSize(18)
-
-  pdf.text(
-    'CONSTANCIA DE ESTUDIOS',
-    105,
-    30,
-    { align: 'center' }
+document
+  .querySelectorAll(
+    'input[type="radio"][data-dia]'
   )
+  .forEach(radio => {
 
-  pdf.setFontSize(12)
+    radio.addEventListener(
+      'change',
+      () => {
 
-  pdf.text(
-    'Se hace constar que:',
-    20,
-    55
-  )
+        const diaId =
+          radio.dataset.dia
 
-  pdf.setFontSize(16)
 
-  pdf.text(
-    `${datos.nombre} ${datos.apellidos}`,
-    105,
-    70,
-    { align: 'center' }
-  )
+        const dia =
+          document.querySelector(
+            `#dia-${diaId}`
+          )
 
-  pdf.setFontSize(12)
 
-  pdf.text(
-    `Matricula: ${datos.matricula}`,
-    20,
-    90
-  )
+        if (!dia) {
+          return
+        }
 
-  pdf.text(
-    `Carrera: ${datos.carrera}`,
-    20,
-    105
-  )
 
-  pdf.text(
-    `Semestre: ${datos.semestre}`,
-    20,
-    120
-  )
+        dia.dataset.tipo =
+          radio.value
 
-  pdf.text(
-    'El presente documento se expide a petición',
-    20,
-    145
-  )
+      }
+    )
 
-  pdf.text(
-    'del interesado para los fines que a éste convengan.',
-    20,
-    155
-  )
+  })
 
-  pdf.text(
-    `Fecha: ${new Date().toLocaleDateString('es-MX')}`,
-    20,
-    180
-  )
 
-  pdf.text(
-    '____________________________',
-    105,
-    220,
-    { align: 'center' }
-  )
+// =====================================================
+// NOMBRE DEL DOCUMENTO
+// =====================================================
 
-  pdf.text(
-    'FIRMA',
-    105,
-    230,
-    { align: 'center' }
-  )
+function obtenerNombreDocumento() {
 
-  const nombreArchivo =
-    `Constancia_${datos.matricula}_${datos.nombre}_${datos.apellidos}.pdf`
+  const cicloTexto =
+    ciclo.value
+      ? ciclo.options[ciclo.selectedIndex].text
+      : 'Sin ciclo'
 
-  pdf.save(nombreArchivo)
+
+  const materiaTexto =
+    materia.value
+      ? materia.options[materia.selectedIndex].text
+      : 'Sin materia'
+
+
+  const semanaTexto =
+    semana.value
+      ? semana.options[semana.selectedIndex].text
+      : 'Sin semana'
+
+
+  return `${cicloTexto} - ${materiaTexto} - ${semanaTexto}`
+    .replace(/[\\/:*?"<>|]/g, '')
+}
+
+
+// =====================================================
+// CONSTRUIR VISTA PREVIA
+// =====================================================
+
+function construirVistaPrevia() {
+
+  const nombreDocumento =
+    obtenerNombreDocumento()
+
+
+  document
+    .querySelector('#previewNombreArchivo')
+    .textContent =
+      nombreDocumento
+
+
+  document
+    .querySelector('#pdfCarrera')
+    .textContent =
+      carrera.value
+        ? carrera.options[carrera.selectedIndex].text
+        : '-'
+
+
+  document
+    .querySelector('#pdfCiclo')
+    .textContent =
+      ciclo.value
+        ? ciclo.options[ciclo.selectedIndex].text
+        : '-'
+
+
+  document
+    .querySelector('#pdfMateria')
+    .textContent =
+      materia.value
+        ? materia.options[materia.selectedIndex].text
+        : '-'
+
+
+  document
+    .querySelector('#pdfSemana')
+    .textContent =
+      semana.value
+        ? semana.options[semana.selectedIndex].text
+        : '-'
+
+
+  document
+    .querySelector('#pdfTema')
+    .textContent =
+      tema.value || '-'
+
+
+  const listaDocentes = []
+
+
+  if (docente1.value) {
+    listaDocentes.push(docente1.value)
+  }
+
+
+  if (docente2.value) {
+    listaDocentes.push(docente2.value)
+  }
+
+
+  document
+    .querySelector('#pdfDocentes')
+    .textContent =
+      listaDocentes.length
+        ? listaDocentes.join(' / ')
+        : '-'
+
+
+  const pdfAgenda =
+    document.querySelector('#pdfAgenda')
+
+
+  pdfAgenda.innerHTML = ''
+
+
+  document
+    .querySelectorAll('.dia')
+    .forEach(dia => {
+
+      const nombreDia =
+        dia
+          .querySelector(
+            '.dia-titulo strong'
+          )
+          ?.textContent || ''
+
+
+      const tipo =
+        dia.dataset.tipo
+
+
+      let tipoTexto =
+        'SIN SELECCIONAR'
+
+
+      if (tipo === 'aula') {
+        tipoTexto = 'AULA'
+      }
+
+
+      if (tipo === 'practica') {
+        tipoTexto = 'PRÁCTICA'
+      }
+
+
+      const textareas =
+        dia.querySelectorAll('textarea')
+
+
+      const subtemas =
+        textareas[0]?.value || ''
+
+
+      const actividadDocente =
+        textareas[1]?.value || ''
+
+
+      const actividadAlumno =
+        textareas[2]?.value || ''
+
+
+      const bibliografia =
+        textareas[3]?.value || ''
+
+
+      const docentesDia =
+        dia.querySelector(
+          '.docentes-dia'
+        )?.innerHTML || '-'
+
+
+      let claseColor = ''
+
+
+      if (tipo === 'aula') {
+        claseColor = 'pdf-aula'
+      }
+
+
+      if (tipo === 'practica') {
+        claseColor = 'pdf-practica'
+      }
+
+
+      const columna =
+        document.createElement('div')
+
+
+      columna.className =
+        `pdf-dia ${claseColor}`
+
+
+      columna.innerHTML = `
+
+        <div class="pdf-dia-titulo">
+
+          <strong>
+            ${nombreDia}
+          </strong>
+
+          <span>
+            ${tipoTexto}
+          </span>
+
+        </div>
+
+
+        <div class="pdf-bloque">
+
+          <strong>
+            DOCENTE
+          </strong>
+
+          <div>
+            ${docentesDia}
+          </div>
+
+        </div>
+
+
+        <div class="pdf-bloque">
+
+          <strong>
+            SUBTEMAS
+          </strong>
+
+          <div>
+            ${subtemas || '-'}
+          </div>
+
+        </div>
+
+
+        <div class="pdf-bloque">
+
+          <strong>
+            ACTIVIDAD DOCENTE
+          </strong>
+
+          <div>
+            ${actividadDocente || '-'}
+          </div>
+
+        </div>
+
+
+        <div class="pdf-bloque">
+
+          <strong>
+            ACTIVIDAD ALUMNO
+          </strong>
+
+          <div>
+            ${actividadAlumno || '-'}
+          </div>
+
+        </div>
+
+
+        <div class="pdf-bloque">
+
+          <strong>
+            BIBLIOGRAFÍA
+          </strong>
+
+          <div>
+            ${bibliografia || '-'}
+          </div>
+
+        </div>
+
+      `
+
+
+      pdfAgenda.appendChild(columna)
+
+    })
 
 }
+
+
+// =====================================================
+// VISTA PREVIA
+// =====================================================
+
+document
+  .querySelector('#btnVistaPrevia')
+  .addEventListener(
+    'click',
+    () => {
+
+      construirVistaPrevia()
+
+
+      document
+        .querySelector('#modalPreview')
+        .classList.add('mostrar')
+
+    }
+  )
+
+
+// =====================================================
+// CERRAR VISTA PREVIA
+// =====================================================
+
+function cerrarVistaPrevia() {
+
+  document
+    .querySelector('#modalPreview')
+    .classList.remove('mostrar')
+
+}
+
+
+document
+  .querySelector('#cerrarPreview')
+  .addEventListener(
+    'click',
+    cerrarVistaPrevia
+  )
+
+
+document
+  .querySelector('#cerrarPreview2')
+  .addEventListener(
+    'click',
+    cerrarVistaPrevia
+  )
+
+
+// =====================================================
+// GENERAR PDF
+// =====================================================
+
+function generarPDF() {
+
+  const nombreDocumento =
+    obtenerNombreDocumento()
+
+  const hoja =
+    document.querySelector('#hojaPDF')
+
+  if (!hoja) {
+    alert('No se encontró la vista previa.')
+    return
+  }
+
+  // Actualizar la vista previa antes de imprimir
+  construirVistaPrevia()
+
+  const ventana =
+    window.open('', '_blank')
+
+  if (!ventana) {
+
+    alert(
+      'El navegador bloqueó la ventana de impresión. Permite ventanas emergentes para este sitio.'
+    )
+
+    return
+  }
+
+  ventana.document.write(`
+
+    <!DOCTYPE html>
+
+    <html>
+
+    <head>
+
+      <title>${nombreDocumento}</title>
+
+      <style>
+
+        @page {
+
+          size: landscape;
+
+          margin: 7mm;
+
+        }
+
+        * {
+
+          box-sizing: border-box;
+
+        }
+
+        body {
+
+          margin: 0;
+
+          padding: 0;
+
+          background: white;
+
+          font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        }
+
+        .hoja-pdf {
+
+          width: 100%;
+
+          min-height: 100%;
+
+          padding: 10px;
+
+          background: white;
+
+          color: #222;
+
+        }
+
+        .pdf-encabezado {
+
+          text-align: center;
+
+          padding-bottom: 12px;
+
+          border-bottom: 2px solid #198754;
+
+        }
+
+        .pdf-encabezado h1 {
+
+          margin: 0;
+
+          color: #176b45;
+
+          font-size: 20px;
+
+        }
+
+        .pdf-encabezado h2 {
+
+          margin: 5px 0 0;
+
+          color: #666;
+
+          font-size: 11px;
+
+          font-weight: normal;
+
+        }
+
+        .pdf-datos {
+
+          display: grid;
+
+          grid-template-columns:
+            1.2fr 1.5fr .7fr;
+
+          gap: 7px 15px;
+
+          margin-top: 14px;
+
+          padding: 10px;
+
+          border: 1px solid #ccc;
+
+          background: #fafafa;
+
+          font-size: 8px;
+
+        }
+
+        .pdf-datos strong {
+
+          margin-right: 4px;
+
+          color: #176b45;
+
+        }
+
+        .pdf-docentes {
+
+          margin-top: 8px;
+
+          padding: 8px;
+
+          border: 1px solid #ccc;
+
+          font-size: 8px;
+
+        }
+
+        .pdf-docentes strong {
+
+          margin-right: 5px;
+
+          color: #176b45;
+
+        }
+
+        .pdf-agenda {
+
+          display: grid;
+
+          grid-template-columns:
+            repeat(5, 1fr);
+
+          margin-top: 18px;
+
+          border-top: 1px solid #777;
+
+          border-left: 1px solid #777;
+
+        }
+
+        .pdf-dia {
+
+          min-height: 475px;
+
+          border-right: 1px solid #777;
+
+          border-bottom: 1px solid #777;
+
+          background: white;
+
+        }
+
+        .pdf-dia.pdf-aula {
+
+          background: #eaf4ff !important;
+
+          -webkit-print-color-adjust: exact;
+
+          print-color-adjust: exact;
+
+        }
+
+        .pdf-dia.pdf-practica {
+
+          background: #eaf8ef !important;
+
+          -webkit-print-color-adjust: exact;
+
+          print-color-adjust: exact;
+
+        }
+
+        .pdf-dia-titulo {
+
+          padding: 7px;
+
+          text-align: center;
+
+          border-bottom: 1px solid #aaa;
+
+          background: rgba(255,255,255,.65);
+
+        }
+
+        .pdf-dia-titulo strong {
+
+          display: block;
+
+          font-size: 9px;
+
+        }
+
+        .pdf-dia-titulo span {
+
+          display: block;
+
+          margin-top: 2px;
+
+          font-size: 7px;
+
+          font-weight: bold;
+
+        }
+
+        .pdf-bloque {
+
+          min-height: 50px;
+
+          padding: 7px;
+
+          border-bottom:
+            1px solid rgba(100,100,100,.25);
+
+          font-size: 7px;
+
+          line-height: 11px;
+
+        }
+
+        .pdf-bloque strong {
+
+          display: block;
+
+          margin-bottom: 3px;
+
+          color: #176b45;
+
+          font-size: 6px;
+
+        }
+
+        .pdf-pie {
+
+          margin-top: 8px;
+
+          text-align: right;
+
+          color: #888;
+
+          font-size: 7px;
+
+        }
+
+      </style>
+
+    </head>
+
+    <body>
+
+      ${hoja.outerHTML}
+
+    </body>
+
+    </html>
+
+  `)
+
+  ventana.document.close()
+
+
+  // Esperar a que el documento esté listo
+
+  ventana.onload = () => {
+
+    ventana.focus()
+
+    ventana.print()
+
+  }
+
+}
+
+
+// =====================================================
+// GENERAR PDF DESDE PREVIEW
+// =====================================================
+
+document
+  .querySelector('#generarDesdePreview')
+  .addEventListener(
+    'click',
+    () => {
+
+      cerrarVistaPrevia()
+
+      generarPDF()
+
+    }
+  )
+
+
+// =====================================================
+// BOTÓN PDF PRINCIPAL
+// =====================================================
+
+document
+  .querySelector('#btnPDF')
+  .addEventListener(
+    'click',
+    generarPDF
+  )
+
+
+// =====================================================
+// GUARDAR
+// =====================================================
+
+document
+  .querySelector('#btnGuardar')
+  .addEventListener(
+    'click',
+    () => {
+
+      alert(
+        'La función de guardar se implementará posteriormente.'
+      )
+
+    }
+  )

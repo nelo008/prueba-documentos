@@ -1,90 +1,1604 @@
+/* =====================================================
+   GENERAL
+===================================================== */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f4f7;
+
+  background: #f3f7f5;
+
+  color: #26352f;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
-.contenedor {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
+#app {
+  width: 100%;
 }
 
-.tarjeta,
-.documento {
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
+.agenda-container {
+
+  width: 96%;
+
+  max-width: 1450px;
+
+  margin: 25px auto;
+
+  padding: 28px;
+
   background: white;
-  padding: 30px;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   ENCABEZADO
+===================================================== */
+
+.encabezado {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  padding-bottom: 18px;
+
+  margin-bottom: 25px;
+
+  border-bottom: 2px solid #dce9e3;
+}
+
+.encabezado-icono {
+
+  width: 48px;
+
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #198754;
+
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,.08);
-  margin-bottom: 30px;
+
+  font-size: 22px;
 }
 
-h1 {
-  margin-top: 0;
+.encabezado h1 {
+
+  margin: 0;
+
+  color: #176b45;
+
+  font-size: 25px;
 }
 
-.descripcion {
-  color: #666;
+.encabezado h2 {
+
+  margin: 3px 0 0;
+
+  color: #718079;
+
+  font-size: 13px;
+
+  font-weight: normal;
+}
+
+
+/* =====================================================
+   DATOS
+===================================================== */
+
+.datos {
+
+  display: grid;
+
+  grid-template-columns:
+    1.1fr
+    1.4fr
+    1fr
+    1fr
+    1fr;
+
+  gap: 15px 20px;
+
+  padding: 20px;
+
+  background: #f8fbf9;
+
+  border: 1px solid #dce9e3;
+
+  border-radius: 10px;
 }
 
 .campo {
-  margin-bottom: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
 }
 
-label {
+.campo label {
+
+  color: #176b45;
+
+  font-size: 10px;
+
+  font-weight: bold;
+
+  white-space: nowrap;
+}
+
+.campo input,
+.campo select {
+
+  width: 100%;
+
+  height: 34px;
+
+  padding: 5px 9px;
+
+  background: white;
+
+  border: 1px solid #cbdad3;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  font-size: 11px;
+}
+
+.campo input:focus,
+.campo select:focus {
+
+  border-color: #198754;
+
+  box-shadow:
+    0 0 0 3px rgba(25,135,84,.1);
+}
+
+.campo input[readonly] {
+
+  background: #edf5f1;
+}
+
+
+/* POSICIONES */
+
+.campo-sede {
+  grid-column: 1 / 2;
+}
+
+.campo-carrera {
+  grid-column: 2 / 6;
+}
+
+.campo-ciclo {
+  grid-column: 1 / 2;
+}
+
+.campo-materia {
+  grid-column: 2 / 4;
+}
+
+.campo-semana {
+  grid-column: 4 / 6;
+}
+
+.campo-tema {
+  grid-column: 1 / 6;
+}
+
+
+/* =====================================================
+   DOCENTES
+===================================================== */
+
+.docentes {
+
+  margin-top: 18px;
+
+  padding: 17px 20px;
+
+  border: 1px solid #dce9e3;
+
+  border-radius: 10px;
+}
+
+.titulo-seccion {
+
+  margin-bottom: 12px;
+
+  color: #176b45;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+.docentes-contenedor {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 25px;
+}
+
+.docente {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.docente label {
+
+  font-size: 10px;
+
+  font-weight: bold;
+
+  white-space: nowrap;
+}
+
+.docente select {
+
+  width: 100%;
+
+  height: 34px;
+
+  border: 1px solid #cbdad3;
+
+  border-radius: 6px;
+
+  padding: 5px;
+
+  background: #f8fbf9;
+
+  font-size: 11px;
+}
+
+.docentes small {
+
   display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
+
+  margin-top: 8px;
+
+  color: #7b8983;
+
+  font-size: 9px;
 }
 
-input,
-select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
+
+/* =====================================================
+   AGENDA
+===================================================== */
+
+.agenda {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  margin-top: 70px;
+
+  border: 1px solid #b9c9c1;
+
+  border-radius: 9px;
 }
 
-button {
+
+/* =====================================================
+   DÍA
+===================================================== */
+
+.dia {
+
+  position: relative;
+
+  min-height: 560px;
+
+  background: white;
+
+  border-right: 1px solid #b9c9c1;
+
+  transition:
+    background-color .2s ease;
+}
+
+.dia:last-child {
+
+  border-right: none;
+}
+
+
+/* =====================================================
+   COLORES AULA / PRÁCTICA
+===================================================== */
+
+.dia[data-tipo="aula"] {
+
+  background: #eaf4ff;
+}
+
+.dia[data-tipo="practica"] {
+
+  background: #eaf8ef;
+}
+
+
+/* =====================================================
+   TÍTULO DEL DÍA
+===================================================== */
+
+.dia-titulo {
+
+  position: absolute;
+
+  top: -58px;
+
+  left: 0;
+
   width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 6px;
-  background: #166534;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+
+  height: 58px;
+
+  text-align: center;
+}
+
+.dia-titulo strong {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #26352f;
+
+  font-size: 13px;
+}
+
+.tipo-dia {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.tipo-dia label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  color: #66736d;
+
+  font-size: 9px;
+
   cursor: pointer;
 }
 
-button:hover {
-  background: #14532d;
+.tipo-dia input {
+
+  margin: 0;
+
+  accent-color: #198754;
 }
 
-.documento {
-  border: 2px solid #ddd;
+.aula-label {
+
+  color: #3678b8;
 }
 
-.documento h2 {
+.practica-label {
+
+  color: #318354;
+}
+
+
+/* =====================================================
+   BLOQUES
+===================================================== */
+
+.bloque {
+
+  padding: 15px 8px 0;
+}
+
+.bloque label {
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #386153;
+
+  font-size: 9px;
+
+  font-weight: bold;
+}
+
+
+/* =====================================================
+   DOCENTES DEL DÍA
+===================================================== */
+
+.docentes-dia {
+
+  min-height: 42px;
+
+  padding: 5px;
+
+  border-radius: 5px;
+
+  background: rgba(255,255,255,.55);
+
+  font-size: 9px;
+
+  line-height: 15px;
+}
+
+.docentes-dia span {
+
+  color: #87948e;
+
+  font-size: 8px;
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+.bloque textarea {
+
+  width: 100%;
+
+  min-height: 65px;
+
+  padding: 7px;
+
+  border: 1px solid rgba(100,120,110,.35);
+
+  border-radius: 6px;
+
+  background: rgba(255,255,255,.65);
+
+  outline: none;
+
+  resize: vertical;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+}
+
+.bloque textarea:focus {
+
+  background: white;
+
+  border-color: #198754;
+}
+
+.bibliografia {
+
+  margin-top: 20px;
+}
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+.acciones {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.acciones button {
+
+  padding: 11px 20px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #198754;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+.acciones button:hover {
+
+  opacity: .9;
+
+  transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MODAL VISTA PREVIA
+===================================================== */
+
+.modal-preview {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: none;
+
+  flex-direction: column;
+
+  background: #202522;
+}
+
+.modal-preview.mostrar {
+
+  display: flex;
+}
+
+
+/* =====================================================
+   HEADER PREVIEW
+===================================================== */
+
+.preview-header {
+
+  min-height: 65px;
+
+  padding: 10px 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  background: #176b45;
+
+  color: white;
+}
+
+.preview-header strong {
+
+  display: block;
+
+  font-size: 14px;
+}
+
+.preview-header span {
+
+  display: block;
+
+  margin-top: 3px;
+
+  opacity: .8;
+
+  font-size: 9px;
+}
+
+.preview-header button {
+
+  width: 34px;
+
+  height: 34px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.15);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+
+/* =====================================================
+   ÁREA PREVIEW
+===================================================== */
+
+.preview-area {
+
+  flex: 1;
+
+  overflow: auto;
+
+  padding: 35px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-start;
+}
+
+
+/* =====================================================
+   HOJA
+===================================================== */
+
+.hoja-pdf {
+
+  width: 1120px;
+
+  min-height: 790px;
+
+  padding: 30px;
+
+  background: white;
+
+  box-shadow:
+    0 8px 35px rgba(0,0,0,.35);
+
+  color: #222;
+}
+
+
+/* =====================================================
+   ENCABEZADO PDF
+===================================================== */
+
+.pdf-encabezado {
+
   text-align: center;
+
+  padding-bottom: 12px;
+
+  border-bottom: 2px solid #198754;
 }
 
-.documento h3 {
+.pdf-encabezado h1 {
+
+  margin: 0;
+
+  color: #176b45;
+
+  font-size: 20px;
+}
+
+.pdf-encabezado h2 {
+
+  margin: 5px 0 0;
+
+  color: #666;
+
+  font-size: 11px;
+
+  font-weight: normal;
+}
+
+
+/* =====================================================
+   DATOS PDF
+===================================================== */
+
+.pdf-datos {
+
+  display: grid;
+
+  grid-template-columns:
+    1.2fr 1.5fr .7fr;
+
+  gap: 7px 15px;
+
+  margin-top: 14px;
+
+  padding: 10px;
+
+  border: 1px solid #ccc;
+
+  background: #fafafa;
+
+  font-size: 8px;
+}
+
+.pdf-datos strong {
+
+  margin-right: 4px;
+
+  color: #176b45;
+}
+
+
+/* =====================================================
+   DOCENTES PDF
+===================================================== */
+
+.pdf-docentes {
+
+  margin-top: 8px;
+
+  padding: 8px;
+
+  border: 1px solid #ccc;
+
+  font-size: 8px;
+}
+
+.pdf-docentes strong {
+
+  margin-right: 5px;
+
+  color: #176b45;
+}
+
+
+/* =====================================================
+   AGENDA PDF
+===================================================== */
+
+.pdf-agenda {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  margin-top: 18px;
+
+  border-top: 1px solid #777;
+
+  border-left: 1px solid #777;
+}
+
+
+/* =====================================================
+   DÍA PDF
+===================================================== */
+
+.pdf-dia {
+
+  min-height: 475px;
+
+  border-right: 1px solid #777;
+
+  border-bottom: 1px solid #777;
+
+  background: white;
+}
+
+.pdf-dia.pdf-aula {
+
+  background: #eaf4ff;
+
+  -webkit-print-color-adjust: exact;
+
+  print-color-adjust: exact;
+}
+
+.pdf-dia.pdf-practica {
+
+  background: #eaf8ef;
+
+  -webkit-print-color-adjust: exact;
+
+  print-color-adjust: exact;
+}
+
+
+/* =====================================================
+   TÍTULO DÍA PDF
+===================================================== */
+
+.pdf-dia-titulo {
+
+  padding: 7px;
+
   text-align: center;
-  margin: 30px 0;
+
+  border-bottom: 1px solid #aaa;
+
+  background: rgba(255,255,255,.65);
 }
 
-.fecha {
-  margin-top: 40px;
+.pdf-dia-titulo strong {
+
+  display: block;
+
+  font-size: 9px;
 }
 
-.firma {
-  text-align: center;
-  margin-top: 80px;
-  margin-bottom: 30px;
+.pdf-dia-titulo span {
+
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 7px;
+
+  font-weight: bold;
+}
+
+
+/* =====================================================
+   BLOQUES PDF
+===================================================== */
+
+.pdf-bloque {
+
+  min-height: 50px;
+
+  padding: 7px;
+
+  border-bottom: 1px solid rgba(100,100,100,.25);
+
+  font-size: 7px;
+
+  line-height: 11px;
+}
+
+.pdf-bloque strong {
+
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #176b45;
+
+  font-size: 6px;
+}
+
+
+/* =====================================================
+   PIE
+===================================================== */
+
+.pdf-pie {
+
+  margin-top: 8px;
+
+  text-align: right;
+
+  color: #888;
+
+  font-size: 7px;
+}
+
+
+/* =====================================================
+   BOTONES PREVIEW
+===================================================== */
+
+.preview-footer {
+
+  min-height: 65px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  background: #151917;
+}
+
+.preview-footer button {
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 11px;
+}
+
+#cerrarPreview2 {
+
+  background: #555;
+
+  color: white;
+}
+
+#generarDesdePreview {
+
+  background: #198754;
+
+  color: white;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) and (min-width: 701px) {
+
+  .agenda-container {
+    width: 96%;
+    padding: 20px;
+  }
+
+  .datos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .campo-sede,
+  .campo-carrera,
+  .campo-ciclo,
+  .campo-materia,
+  .campo-semana,
+  .campo-tema {
+    grid-column: auto;
+  }
+
+  .agenda {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    border: none;
+  }
+
+  .dia {
+    border: 1px solid #b9c9c1;
+    border-radius: 10px;
+  }
+
+  .dia:last-child {
+    border-right: 1px solid #b9c9c1;
+  }
+
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media (max-width: 700px) {
+
+  body {
+    background: #eef4f1;
+  }
+
+
+  /* ===================================================
+     CONTENEDOR PRINCIPAL
+  =================================================== */
+
+  .agenda-container {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 12px;
+
+    border-radius: 0;
+
+    box-shadow: none;
+
+    background: #eef4f1;
+  }
+
+
+  /* ===================================================
+     ENCABEZADO
+  =================================================== */
+
+  .encabezado {
+
+    justify-content: flex-start;
+
+    margin-bottom: 15px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    box-shadow:
+      0 3px 12px rgba(0,0,0,.06);
+  }
+
+  .encabezado-icono {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    font-size: 19px;
+  }
+
+  .encabezado h1 {
+
+    font-size: 19px;
+  }
+
+  .encabezado h2 {
+
+    font-size: 10px;
+  }
+
+
+  /* ===================================================
+     DATOS GENERALES
+  =================================================== */
+
+  .datos {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    box-shadow:
+      0 3px 12px rgba(0,0,0,.06);
+  }
+
+
+  .campo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 5px;
+  }
+
+
+  .campo label {
+
+    font-size: 9px;
+
+    padding-left: 2px;
+  }
+
+
+  .campo input,
+  .campo select {
+
+    width: 100%;
+
+    height: 40px;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+  }
+
+
+  .campo-sede,
+  .campo-carrera,
+  .campo-ciclo,
+  .campo-materia,
+  .campo-semana,
+  .campo-tema {
+
+    grid-column: auto;
+  }
+
+
+  /* ===================================================
+     DOCENTES
+  =================================================== */
+
+  .docentes {
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    box-shadow:
+      0 3px 12px rgba(0,0,0,.06);
+  }
+
+
+  .docentes-contenedor {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+
+  .docente {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 5px;
+  }
+
+
+  .docente label {
+
+    font-size: 9px;
+  }
+
+
+  .docente select {
+
+    width: 100%;
+
+    height: 40px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+  }
+
+
+  .docentes small {
+
+    margin-top: 10px;
+
+    font-size: 8px;
+  }
+
+
+  /* ===================================================
+     AGENDA
+  =================================================== */
+
+  .agenda {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+    margin-top: 80px;
+
+    border: none;
+  }
+
+
+  /* ===================================================
+     DÍA
+  =================================================== */
+
+  .dia {
+
+    width: 100%;
+
+    min-height: auto;
+
+    padding-bottom: 15px;
+
+    border: 1px solid #ccd9d3;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+      0 3px 14px rgba(0,0,0,.06);
+  }
+
+
+  .dia:last-child {
+
+    border-right: 1px solid #ccd9d3;
+  }
+
+
+  /* ===================================================
+     AULA
+  =================================================== */
+
+  .dia[data-tipo="aula"] {
+
+    background: #eaf4ff;
+
+    border-color: #b9d7f3;
+  }
+
+
+  /* ===================================================
+     PRÁCTICA
+  =================================================== */
+
+  .dia[data-tipo="practica"] {
+
+    background: #eaf8ef;
+
+    border-color: #b9ddc6;
+  }
+
+
+  /* ===================================================
+     ENCABEZADO DEL DÍA
+  =================================================== */
+
+  .dia-titulo {
+
+    position: relative;
+
+    top: auto;
+
+    left: auto;
+
+    width: 100%;
+
+    height: auto;
+
+    min-height: 65px;
+
+    padding: 12px 10px;
+
+    background: rgba(255,255,255,.65);
+
+    border-bottom: 1px solid rgba(100,120,110,.25);
+  }
+
+
+  .dia-titulo strong {
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+  }
+
+
+  .tipo-dia {
+
+    gap: 20px;
+  }
+
+
+  .tipo-dia label {
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.75);
+
+    font-size: 9px;
+  }
+
+
+  .tipo-dia input {
+
+    width: 14px;
+
+    height: 14px;
+  }
+
+
+  /* ===================================================
+     BLOQUES DEL DÍA
+  =================================================== */
+
+  .bloque {
+
+    padding:
+
+      13px
+      13px
+      0;
+  }
+
+
+  .bloque label {
+
+    margin-bottom: 6px;
+
+    font-size: 9px;
+  }
+
+
+  /* ===================================================
+     DOCENTES DEL DÍA
+  =================================================== */
+
+  .docentes-dia {
+
+    min-height: 45px;
+
+    padding: 8px;
+
+    border: 1px solid rgba(100,120,110,.20);
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.60);
+
+    font-size: 9px;
+
+    line-height: 16px;
+  }
+
+
+  /* ===================================================
+     TEXTAREAS
+  =================================================== */
+
+  .bloque textarea {
+
+    min-height: 90px;
+
+    padding: 9px;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.70);
+
+    font-size: 10px;
+
+    line-height: 15px;
+  }
+
+
+  .bibliografia {
+
+    margin-top: 8px;
+  }
+
+
+  /* ===================================================
+     BOTONES
+  =================================================== */
+
+  .acciones {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    box-shadow:
+      0 3px 12px rgba(0,0,0,.06);
+  }
+
+
+  .acciones button {
+
+    width: 100%;
+
+    min-height: 43px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+  }
+
+
+  /* ===================================================
+     VISTA PREVIA EN CELULAR
+     
+     IMPORTANTE:
+     La hoja PDF NO se modifica.
+     Se permite desplazamiento horizontal.
+  =================================================== */
+
+  .modal-preview {
+
+    background: #202522;
+  }
+
+
+  .preview-header {
+
+    min-height: 58px;
+
+    padding: 9px 13px;
+  }
+
+
+  .preview-header strong {
+
+    font-size: 11px;
+  }
+
+
+  .preview-header span {
+
+    max-width: 240px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    font-size: 7px;
+  }
+
+
+  .preview-area {
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+
+    padding: 15px;
+  }
+
+
+  .hoja-pdf {
+
+    flex-shrink: 0;
+
+    width: 1120px;
+
+    min-height: 790px;
+  }
+
+
+  .preview-footer {
+
+    min-height: 58px;
+
+    padding: 8px 12px;
+  }
+
+
+  .preview-footer button {
+
+    padding: 9px 14px;
+
+    font-size: 9px;
+  }
+
+}
+
+
+/* =====================================================
+   IMPRESIÓN / PDF
+===================================================== */
+
+@media print {
+
+  body {
+
+    background: white;
+  }
+
+  .agenda-container {
+
+    width: 100%;
+
+    max-width: none;
+
+    margin: 0;
+
+    padding: 5px;
+
+    box-shadow: none;
+
+    border-radius: 0;
+  }
+
+  .acciones {
+
+    display: none !important;
+  }
+
+  .modal-preview {
+
+    display: none !important;
+  }
+
+  .dia[data-tipo="aula"] {
+
+    background: #eaf4ff !important;
+
+    -webkit-print-color-adjust: exact;
+
+    print-color-adjust: exact;
+  }
+
+  .dia[data-tipo="practica"] {
+
+    background: #eaf8ef !important;
+
+    -webkit-print-color-adjust: exact;
+
+    print-color-adjust: exact;
+  }
+
+  .dia {
+
+    -webkit-print-color-adjust: exact;
+
+    print-color-adjust: exact;
+  }
+
+  @page {
+
+    size: landscape;
+
+    margin: 7mm;
+  }
 }
